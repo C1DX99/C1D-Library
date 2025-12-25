@@ -18,7 +18,7 @@ local Window = Rayfield:CreateWindow({
 })
 
 local buttonData = {
-    ["Adopt Me (Autofarm Gingerbread)"] = "loadstring(game:HttpGet('https://raw.githubusercontent.com/konai67/XENO99/refs/heads/main/main.lua'))()",
+    ["Adopt Me (Autofarm Gingerbread)"] = "loadstring(game:HttpGet('https://pastefy.app/71SURyDf/raw'))()",
     ["Adopt Me (Pet Spawner V1)"] = "loadstring(game:HttpGet('https://pastefy.app/nTv8VJUz/raw'))()",
     ["Murder Mystery 2 (Autofarm snowflakes)"] = "loadstring(game:HttpGet('https://pastefy.app/OMoSSnvZ/raw'))()",
     ["Ronix Hub"] = "loadstring(game:HttpGet('https://raw.githubusercontent.com/StonK-StonK/RonixHub/main/Main'))()",
