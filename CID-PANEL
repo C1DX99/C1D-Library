@@ -1,87 +1,131 @@
+-- [[ THE CID PANEL - PREMIUM ]] --
+
+-- 1. PREMIUM LOADING SYSTEM
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
 
-local Window = WindUI:CreateWindow({
+-- Notification of Startup
+WindUI:Notify({
     Title = "THE CID PANEL",
-    Folder = "cid_panel",
-    Icon = "solar:folder-2-bold-duotone",
+    Content = "Authenticating Premium Access...",
+    Duration = 3,
+    Icon = "solar:shield-check-bold"
+})
+
+-- 2. CREATE MAIN WINDOW
+local Window = WindUI:CreateWindow({
+    Title = "THE CID PANEL [PREMIUM]",
+    Folder = "cid_panel_pro",
+    Icon = "solar:crown-bold", -- Premium Icon
     NewElements = true,
     OpenButton = {
-        Title = "Open THE CID PANEL",
+        Title = "CID MENU",
         Enabled = true,
         Draggable = true,
-        Color = ColorSequence.new(Color3.fromHex("#FF4B4B"), Color3.fromHex("#7775F2"))
+        Color = ColorSequence.new(Color3.fromHex("#FFD700"), Color3.fromHex("#FF4B4B")) -- Gold to Red Gradient
     }
 })
 
--- Colors
+-- 3. THEME COLORS
+local Gold = Color3.fromHex("#FFD700")
 local Red = Color3.fromHex("#FF4B4B")
+local Blue = Color3.fromHex("#00BFFF")
 local Green = Color3.fromHex("#10C550")
-local Purple = Color3.fromHex("#7775F2")
-local Yellow = Color3.fromHex("#ECA201")
 
-local ElementsSection = Window:Section({ Title = "Game Scripts" })
-
--- Helper Function
-local function AddGame(Tab, GameName, CodeSource)
+-- 4. HELPER FUNCTION (With Sound and Visuals)
+local function AddPremiumGame(Tab, GameName, CodeSource)
     Tab:Button({
         Title = GameName,
-        Icon = "solar:play-bold",
+        Icon = "solar:play-circle-bold",
         IconAlign = "Right",
         Callback = function()
-            WindUI:Notify({ Title = "THE CID PANEL", Content = "Booting " .. GameName, Duration = 3 })
-            loadstring(game:HttpGet(CodeSource))()
+            -- Premium loading notification
+            WindUI:Notify({
+                Title = "Executing",
+                Content = "Injecting " .. GameName .. " script...",
+                Duration = 2,
+                Icon = "solar:rocket-bold"
+            })
+            
+            -- Execution logic
+            local success, err = pcall(function()
+                loadstring(game:HttpGet(CodeSource))()
+            end)
+            
+            if not success then
+                WindUI:Notify({Title = "Error", Content = "Script failed. Server might be patched.", Duration = 5})
+            end
         end
     })
     Tab:Space()
 end
 
--- TABS
-local GamesAE = ElementsSection:Tab({ Title = "Games A-E", Icon = "solar:star-bold", IconColor = Red, IconShape = "Square", Border = true })
-local GamesFM = ElementsSection:Tab({ Title = "Games F-M", Icon = "solar:bolt-bold", IconColor = Green, IconShape = "Square", Border = true })
-local GamesNZ = ElementsSection:Tab({ Title = "Games N-Z", Icon = "solar:target-bold", IconColor = Purple, IconShape = "Square", Border = true })
+-- 5. DASHBOARD TAB (System Info)
+local Dashboard = Window:Tab({ Title = "Dashboard", Icon = "solar:home-smile-bold", IconColor = Gold })
+Dashboard:Section({ Title = "User Information" })
+Dashboard:Section({ Title = "User: " .. game.Players.LocalPlayer.Name, TextTransparency = 0.5 })
+Dashboard:Section({ Title = "Status: Premium User", TextTransparency = 0.5 })
+Dashboard:Section({ Title = "Device: " .. (game:GetService("UserInputService").TouchEnabled and "Mobile" or "PC"), TextTransparency = 0.5 })
 
--- --- Games A-E (ADOPT ME AT TOP) ---
-AddGame(GamesAE, "Adopt Me (AutoFarm)", "https://pastefy.app/71SURyDf/raw")
-AddGame(GamesAE, "Adopt Me (Pet Spawner)", "https://pastefy.app/nTv8VJUz/raw")
-AddGame(GamesAE, "Blox Fruits (Thunder Hub)", "https://raw.githubusercontent.com/TheRealGamer-hub/Thunder-Hub/main/Main.lua")
-AddGame(GamesAE, "Arsenal", "https://raw.githubusercontent.com/0x0d3f/Quartyz/main/Gold.lua")
-AddGame(GamesAE, "Brookhaven", "https://raw.githubusercontent.com/Ice-Hub/Ice-Hub/main/Ice-Hub.lua")
-AddGame(GamesAE, "Bee Swarm Simulator", "https://raw.githubusercontent.com/Project-Advanced/CocoHub/main/BeeSwarmSimulator.lua")
+-- 6. GAME TABS
+local MainGames = Window:Tab({ Title = "Main Games", Icon = "solar:star-bold", IconColor = Red })
+local OtherGames = Window:Tab({ Title = "Other Games", Icon = "solar:gamepad-old-bold", IconColor = Blue })
 
--- --- Games F-M ---
-AddGame(GamesFM, "Murder Mystery 2", "https://pastefy.app/OMoSSnvZ/raw")
-AddGame(GamesFM, "Flee the Facility", "https://raw.githubusercontent.com/RTrade/Voidz/main/Games/FleeTheFacility.lua")
-AddGame(GamesFM, "Frontlines", "https://raw.githubusercontent.com/SillyVane/Exunys-Scripts/main/Frontlines/Main.lua")
-AddGame(GamesFM, "Jailbreak", "https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Jailbreak/Jailbreak.lua")
-AddGame(GamesFM, "King Legacy", "https://raw.githubusercontent.com/Dragon-v2/D-v2/main/KingLegacy.lua")
+-- [[ MAIN GAMES - TOP 4 ]]
+AddPremiumGame(MainGames, "Adopt Me (AutoFarm)", "https://pastefy.app/71SURyDf/raw")
+AddPremiumGame(MainGames, "Adopt Me (Pet Spawner)", "https://pastefy.app/nTv8VJUz/raw")
+AddPremiumGame(MainGames, "Blox Fruits (Premium Hub)", "https://api.luarmor.net/files/v3/loaders/fda9babd071d6b536a745774b6bc681c.lua")
+AddPremiumGame(MainGames, "Brookhaven (Premium Hub)", "https://api.luarmor.net/files/v3/loaders/fda9babd071d6b536a745774b6bc681c.lua")
 
--- --- Games N-Z ---
-AddGame(GamesNZ, "Pet Simulator 99", "https://raw.githubusercontent.com/Zap-Hub/ZapHub/main/ZapHubLoader.lua")
-AddGame(GamesNZ, "Rivals", "https://raw.githubusercontent.com/Sheeshablee73/Scripts/main/Rivals.lua")
-AddGame(GamesNZ, "Sol's RNG", "https://raw.githubusercontent.com/NatsumeScripts/SolsRNG/main/Main.lua")
-AddGame(GamesNZ, "Strongest Battlegrounds", "https://raw.githubusercontent.com/S-PScripts/S-P-Hub/main/Main.lua")
-AddGame(GamesNZ, "Tower Defense Sim", "https://raw.githubusercontent.com/Xenon-Scripts/Xenon/main/Loader.lua")
+-- [[ OTHER GAMES - BOTTOM 4 ]]
+AddPremiumGame(OtherGames, "Murder Mystery 2", "https://pastefy.app/OMoSSnvZ/raw")
+AddPremiumGame(OtherGames, "Arsenal (Gold Hub)", "https://raw.githubusercontent.com/ThunderZHub/UAHEUAHEUHAE/main/main.lua")
+AddPremiumGame(OtherGames, "Rivals (New Script)", "https://raw.githubusercontent.com/blexn9/Script/refs/heads/main/Main")
+AddPremiumGame(OtherGames, "The Strongest Battlegrounds", "https://raw.githubusercontent.com/S-PScripts/S-P-Hub/main/Main.lua")
 
--- --- SETTINGS & UTILS ---
-local SettingsTab = Window:Tab({ Title = "Settings", Icon = "solar:settings-bold", IconColor = Color3.fromRGB(200,200,200), IconShape = "Square", Border = true })
+-- 7. PREMIUM SETTINGS
+local SettingsTab = Window:Tab({ Title = "Settings", Icon = "solar:settings-minimalistic-bold", IconColor = Color3.fromRGB(200,200,200) })
 
-local PlayerCheats = SettingsTab:Section({ Title = "Player Settings" })
-PlayerCheats:Slider({ Title = "Walkspeed", Value = { Min = 16, Max = 250, Default = 16 }, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end })
-PlayerCheats:Slider({ Title = "Jump Power", Value = { Min = 50, Max = 500, Default = 50 }, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.JumpPower = v end })
+local Cheats = SettingsTab:Section({ Title = "Character Customization" })
+Cheats:Slider({ Title = "Walkspeed", Value = { Min = 16, Max = 250, Default = 16 }, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end })
+Cheats:Slider({ Title = "Jump Power", Value = { Min = 50, Max = 500, Default = 50 }, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.JumpPower = v end })
 
-local Utils = SettingsTab:Section({ Title = "Utilities" })
-Utils:Toggle({ Title = "Anti-AFK", Callback = function(v)
-    _G.AntiAFK = v
-    game:GetService("Players").LocalPlayer.Idled:Connect(function()
-        if _G.AntiAFK then game:GetService("VirtualUser"):Button2(Vector2.new(), workspace.CurrentCamera.CFrame) end
-    end)
-end})
+local System = SettingsTab:Section({ Title = "System Utilities" })
+System:Toggle({ 
+    Title = "Anti-AFK System", 
+    Desc = "Keeps you connected indefinitely",
+    Callback = function(v)
+        _G.AntiAFK = v
+        game:GetService("Players").LocalPlayer.Idled:Connect(function()
+            if _G.AntiAFK then game:GetService("VirtualUser"):Button2(Vector2.new(), workspace.CurrentCamera.CFrame) end
+        end)
+    end
+})
 
--- Credits
-SettingsTab:Space()
-local Credits = SettingsTab:Section({ Title = "Credits" })
-Credits:Section({ Title = "This script was made by CID", FontWeight = Enum.FontWeight.Bold })
+System:Button({
+    Title = "Rejoin Server",
+    Icon = "solar:restart-bold",
+    Callback = function() game:GetService("TeleportService"):Teleport(game.PlaceId) end
+})
 
--- Info
-local Info = Window:Tab({ Title = "Info & Socials", Icon = "solar:info-circle-bold", IconColor = Yellow, IconShape = "Square", Border = true })
-Info:Button({ Title = "Copy Discord Invite", Desc = "discord.gg/2vxSdFF375", Icon = "solar:share-circle-bold", IconAlign = "Right", Callback = function() setclipboard("https://discord.gg/2vxSdFF375") end })
+-- 8. CREDITS & DISCORD
+local Info = Window:Tab({ Title = "Credits", Icon = "solar:info-circle-bold", IconColor = Green })
+Info:Section({ Title = "THE CID PANEL v2.0", FontWeight = Enum.FontWeight.Bold })
+Info:Section({ Title = "Developed by: CID", TextTransparency = 0.5 })
+Info:Space()
+Info:Button({ 
+    Title = "Copy Discord Link", 
+    Desc = "Join the community", 
+    Icon = "solar:copy-bold", 
+    Callback = function() 
+        setclipboard("https://discord.gg/2vxSdFF375") 
+        WindUI:Notify({Title = "Copied", Content = "Discord invite copied to clipboard!"})
+    end 
+})
+
+-- Finish Loading
+WindUI:Notify({
+    Title = "Welcome!",
+    Content = "CID Panel loaded successfully.",
+    Duration = 5,
+    Icon = "solar:check-circle-bold"
+})
