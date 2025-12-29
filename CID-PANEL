@@ -78,6 +78,16 @@ Main:Button({
 -- --- OTHER GAMES ---
 local Other = Window:Tab({ Title = "Other Games", Icon = "solar:gamepad-old-bold", IconColor = Color3.fromHex("#00BFFF") })
 
+-- [[ SPEED HUB X ADDITION ]]
+Other:Button({
+    Title = "Speed Hub X",
+    Desc = "All-in-one Hub (Blox Fruits, Pet Sim, etc.)",
+    Icon = "solar:fire-bold",
+    Callback = function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua"))() 
+    end
+})
+
 Other:Button({
     Title = "Blox Fruits (Premium)",
     Desc = "Auto-farm levels and fruits.",
