@@ -78,7 +78,14 @@ Main:Button({
 -- --- OTHER GAMES ---
 local Other = Window:Tab({ Title = "Other Games", Icon = "solar:gamepad-old-bold", IconColor = Color3.fromHex("#00BFFF") })
 
--- [[ SPEED HUB X ADDITION ]]
+-- [[ ADDED EVADE DARA HUB ]]
+Other:Button({
+    Title = "Evade (Dara Hub)",
+    Desc = "Keyless hub for Evade features.",
+    Icon = "solar:ghost-bold",
+    Callback = function() loadstring(game:HttpGet("https://rawscripts.net/raw/Evade-Dara-Hub-KEYLESS-70545"))() end
+})
+
 Other:Button({
     Title = "Speed Hub X",
     Desc = "All-in-one Hub (Blox Fruits, Pet Sim, etc.)",
